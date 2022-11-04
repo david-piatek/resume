@@ -1,0 +1,20 @@
+name: 'Publish new index'
+
+description: 'Build and publish'
+
+inputs:
+  commit:
+    required: true
+    description: "Commit"
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: 'Docker build & push'
+      shell: bash
+      run: |
+        make build
+        git add ./index.html
+        git commit -m "Upgrade ${{ inputs.commit }} 🦄"
+        git push
